@@ -13,7 +13,7 @@
 .page {
   max-width: 480px;
   margin: 0 auto;
-  padding: 1rem 1rem 6rem;
+  padding: 1rem 1rem 6.5rem;
 }
 
 /* ---------- Header ---------- */
@@ -467,16 +467,19 @@
 
 .bottom-nav {
   position: fixed;
-  bottom: 0;
+  bottom: calc(0.85rem + env(safe-area-inset-bottom));
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  max-width: 480px;
+  width: calc(100% - 2.5rem);
+  max-width: 400px;
   display: flex;
-  background: rgba(18, 22, 19, 0.92);
-  backdrop-filter: blur(12px);
-  border-top: 1px solid #232925;
-  padding: 0.5rem 0.75rem calc(0.5rem + env(safe-area-inset-bottom));
+  background: rgba(26, 31, 28, 0.6);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .bottom-nav button {
