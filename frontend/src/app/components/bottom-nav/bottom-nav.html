@@ -1,0 +1,14 @@
+<nav class="bottom-nav">
+  <button type="button" [class.active]="active() === 'home'" (click)="tabChange.emit('home')">
+    <span class="nav-icon"><i class="icon-house"></i></span>
+    <span>Accueil</span>
+  </button>
+  <button type="button" [class.active]="active() === 'stats'" (click)="tabChange.emit('stats')">
+    <span class="nav-icon"><i class="icon-chart-column"></i></span>
+    <span>Stats</span>
+  </button>
+  <button type="button" [class.active]="active() === 'profile'" (click)="tabChange.emit('profile')">
+    <span class="nav-icon"><i class="icon-user"></i></span>
+    <span>Profil</span>
+  </button>
+</nav>

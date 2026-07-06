@@ -1,4 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+/* Styles globaux : variables du thème et classes partagées entre composants */
+
+:root {
+  --bg: #0c0f0d;
+  --card: #161a17;
+  --card-soft: #1c211d;
+  --green: #34d867;
+  --green-dark: #1a7f37;
+  --red: #e05744;
+  --text: #e8ece9;
+  --muted: #8a938d;
+  --radius: 20px;
+}
 
 * {
   box-sizing: border-box;
@@ -8,6 +20,132 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: #0c0f0d;
-  color: #e8ece9;
+  background: var(--bg);
+  color: var(--text);
+}
+
+h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+}
+
+/* ---------- Éléments partagés ---------- */
+
+.card {
+  background: var(--card);
+  border: 1px solid #232925;
+  border-radius: var(--radius);
+  padding: 1.1rem;
+}
+
+.hint {
+  text-align: center;
+  color: var(--muted);
+}
+
+.banner {
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.banner.error {
+  background: #3a1713;
+  color: #ff9d8f;
+}
+
+.avatar {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #234d32, #12281a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--green);
+  font-size: 1.1rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ---------- Ligne de transaction (accueil + stats) ---------- */
+
+.tx {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tx-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 12px;
+  background: var(--card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  color: var(--green);
+  flex-shrink: 0;
+}
+
+.tx-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.tx-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tx-date {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.tx-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.tx-amount {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--green);
+  margin-right: 0.25rem;
+}
+
+.tx-amount.negative {
+  color: var(--red);
+}
+
+.icon-btn {
+  border: none;
+  background: var(--card);
+  color: var(--muted);
+  border-radius: 10px;
+  width: 2.1rem;
+  height: 2.1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.icon-btn:active {
+  color: var(--text);
 }

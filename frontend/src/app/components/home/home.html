@@ -1,0 +1,86 @@
+<header class="header">
+  <div class="avatar">{{ greeting.charAt(0) }}</div>
+  <div class="header-text">
+    <h1>{{ greeting }}</h1>
+    <p>Bienvenue sur ton budget</p>
+  </div>
+  <button type="button" class="bell" aria-label="Notifications"><i class="icon-bell"></i></button>
+</header>
+
+@if (store.error()) {
+  <p class="banner error">{{ store.error() }}</p>
+}
+
+<section class="hero card-glow">
+  <div class="hero-top">
+    <span class="pill">Mensuel</span>
+    <svg class="sparkline" viewBox="0 0 100 36" preserveAspectRatio="none" aria-hidden="true">
+      <polyline [attr.points]="store.sparklinePoints()" />
+    </svg>
+  </div>
+  <p class="hero-label">Solde</p>
+  <p class="hero-amount" [class.negative]="store.balance() < 0">
+    {{ store.balance() | currency:'EUR':'symbol':'1.2-2':'fr' }}
+  </p>
+  <div class="hero-stats">
+    <div>
+      <span class="stat-label">Dépensé</span>
+      <span class="stat-value spent">{{ store.spent() | currency:'EUR':'symbol':'1.2-2':'fr' }}</span>
+    </div>
+    <div class="stat-right">
+      <span class="stat-label">Reçu</span>
+      <span class="stat-value received">{{ store.income() | currency:'EUR':'symbol':'1.2-2':'fr' }}</span>
+    </div>
+  </div>
+</section>
+
+<section class="quick-actions">
+  <h2>Actions rapides</h2>
+  <div class="actions-row">
+    <button type="button" class="action-card" (click)="openForm('expense')">
+      <span class="action-icon minus"><i class="icon-minus"></i></span>
+      <span>Ajouter une dépense</span>
+    </button>
+    <button type="button" class="action-card" (click)="openForm('income')">
+      <span class="action-icon plus"><i class="icon-plus"></i></span>
+      <span>Ajouter un revenu</span>
+    </button>
+  </div>
+</section>
+
+@if (formVisible()) {
+  <app-transaction-form
+    [mode]="formMode()"
+    [transaction]="editing()"
+    (save)="onSave($event)"
+    (cancelled)="closeForm()" />
+}
+
+<section class="activity">
+  <div class="activity-head">
+    <h2>Activité récente</h2>
+  </div>
+
+  @if (store.loading()) {
+    <p class="hint">Chargement...</p>
+  } @else if (store.transactions().length === 0) {
+    <p class="hint">Aucune transaction pour le moment.</p>
+  }
+
+  @for (transaction of store.transactions(); track transaction.id) {
+    <div class="tx">
+      <span class="tx-icon"><i class="icon-{{ iconFor(transaction) }}"></i></span>
+      <div class="tx-info">
+        <span class="tx-label">{{ transaction.label }}</span>
+        <span class="tx-date">{{ relativeDate(transaction.date) }}</span>
+      </div>
+      <div class="tx-actions">
+        <span class="tx-amount" [class.negative]="transaction.amount < 0">
+          {{ (transaction.amount > 0 ? '+' : '') + '' }}{{ transaction.amount | currency:'EUR':'symbol':'1.2-2':'fr' }}
+        </span>
+        <button type="button" class="icon-btn" aria-label="Modifier" (click)="edit(transaction)"><i class="icon-pencil"></i></button>
+        <button type="button" class="icon-btn" aria-label="Supprimer" (click)="store.remove(transaction.id)"><i class="icon-x"></i></button>
+      </div>
+    </div>
+  }
+</section>

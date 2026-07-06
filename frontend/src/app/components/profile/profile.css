@@ -1,0 +1,86 @@
+.header {
+  padding: 0.75rem 0 1.25rem;
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.header-text p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.profile-hero {
+  background: linear-gradient(160deg, #1d3b26 0%, #12241a 55%, #0f1a13 100%);
+  border: 1px solid #234d32;
+  border-radius: var(--radius);
+  padding: 2rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.card-glow {
+  box-shadow: 0 0 40px rgba(52, 216, 103, 0.08);
+}
+
+.avatar.big {
+  width: 4.5rem;
+  height: 4.5rem;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.profile-name {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.profile-sub {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.profile-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 0.4rem;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 0.95rem;
+  padding: 0.9rem 0.75rem;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.menu-item:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 0;
+}
+
+.menu-item:disabled {
+  cursor: default;
+}
+
+.soon {
+  font-size: 0.75rem;
+  color: var(--muted);
+  background: var(--card-soft);
+  padding: 0.25rem 0.6rem;
+  border-radius: 2rem;
+}

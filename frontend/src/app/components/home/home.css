@@ -1,0 +1,174 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0 1.25rem;
+}
+
+.header-text {
+  flex: 1;
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.header-text p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.bell {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid #262c28;
+  background: var(--card);
+  color: var(--text);
+  font-size: 1.05rem;
+  cursor: pointer;
+}
+
+/* ---------- Hero card ---------- */
+
+.hero {
+  background: linear-gradient(160deg, #1d3b26 0%, #12241a 55%, #0f1a13 100%);
+  border: 1px solid #234d32;
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-glow {
+  box-shadow: 0 0 40px rgba(52, 216, 103, 0.08);
+}
+
+.hero-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pill {
+  background: var(--green-dark);
+  color: #dcffe8;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.9rem;
+  border-radius: 2rem;
+}
+
+.sparkline {
+  width: 45%;
+  height: 44px;
+}
+
+.sparkline polyline {
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.hero-label {
+  margin: 0.75rem 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.hero-amount {
+  margin: 0.15rem 0 1rem;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.hero-amount.negative {
+  color: #ff9d8f;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 0.9rem;
+}
+
+.hero-stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.stat-right {
+  text-align: right;
+}
+
+.stat-value {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.stat-value.spent {
+  color: #ffb3a7;
+}
+
+.stat-value.received {
+  color: var(--green);
+}
+
+/* ---------- Quick actions ---------- */
+
+.actions-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.action-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: var(--card);
+  border: 1px solid #232925;
+  border-radius: var(--radius);
+  padding: 1rem;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+}
+
+.action-card:active {
+  background: var(--card-soft);
+}
+
+.action-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--green);
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* ---------- Activity ---------- */
+
+.activity-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -1,0 +1,90 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-title {
+  margin: 0;
+  font-weight: 600;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+}
+
+.field label {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.field input {
+  font-size: 1rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #2b322d;
+  border-radius: 10px;
+  width: 100%;
+  background: #10140f;
+  color: var(--text);
+  color-scheme: dark;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--green-dark);
+}
+
+.field-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #2b322d;
+  background: transparent;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+  color: #eafff2;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  border: 1px solid #2b322d;
+  background: #10140f;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.45rem 0.75rem;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.chip.selected {
+  border-color: var(--green);
+  background: rgba(52, 216, 103, 0.12);
+  color: var(--green);
+}

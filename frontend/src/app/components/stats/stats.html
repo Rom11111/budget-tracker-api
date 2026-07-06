@@ -1,0 +1,67 @@
+<header class="header">
+  <div class="header-text">
+    <h1>Statistiques</h1>
+    <p>Vue d'ensemble de ton budget</p>
+  </div>
+</header>
+
+<section class="stats-grid">
+  <div class="card stat-card">
+    <span class="stat-label">Solde</span>
+    <span class="stat-big" [class.negative]="store.balance() < 0">
+      {{ store.balance() | currency:'EUR':'symbol':'1.0-0':'fr' }}
+    </span>
+  </div>
+  <div class="card stat-card">
+    <span class="stat-label">Transactions</span>
+    <span class="stat-big">{{ store.count() }}</span>
+  </div>
+  <div class="card stat-card">
+    <span class="stat-label">Dépensé</span>
+    <span class="stat-big spent">{{ store.spent() | currency:'EUR':'symbol':'1.0-0':'fr' }}</span>
+  </div>
+  <div class="card stat-card">
+    <span class="stat-label">Reçu</span>
+    <span class="stat-big received">{{ store.income() | currency:'EUR':'symbol':'1.0-0':'fr' }}</span>
+  </div>
+</section>
+
+<section class="category-breakdown">
+  <h2>Dépenses par catégorie</h2>
+  @if (store.spentByCategory().length === 0) {
+    <p class="hint">Aucune dépense enregistrée.</p>
+  }
+  @for (row of store.spentByCategory(); track row.category.id) {
+    <div class="cat-row">
+      <span class="tx-icon"><i class="icon-{{ row.category.icon }}"></i></span>
+      <div class="cat-info">
+        <div class="cat-line">
+          <span class="cat-label">{{ row.category.label }}</span>
+          <span class="cat-amount">{{ row.total | currency:'EUR':'symbol':'1.2-2':'fr' }}</span>
+        </div>
+        <div class="cat-bar">
+          <div class="cat-bar-fill" [style.width.%]="row.percent"></div>
+        </div>
+      </div>
+    </div>
+  }
+</section>
+
+<section class="activity">
+  <h2>Top dépenses</h2>
+  @if (store.topExpenses().length === 0) {
+    <p class="hint">Aucune dépense enregistrée.</p>
+  }
+  @for (transaction of store.topExpenses(); track transaction.id) {
+    <div class="tx">
+      <span class="tx-icon"><i class="icon-{{ iconFor(transaction) }}"></i></span>
+      <div class="tx-info">
+        <span class="tx-label">{{ transaction.label }}</span>
+        <span class="tx-date">{{ relativeDate(transaction.date) }}</span>
+      </div>
+      <span class="tx-amount negative">
+        {{ transaction.amount | currency:'EUR':'symbol':'1.2-2':'fr' }}
+      </span>
+    </div>
+  }
+</section>

@@ -1,0 +1,92 @@
+.header {
+  padding: 0.75rem 0 1.25rem;
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.header-text p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.stat-big {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.stat-big.negative,
+.stat-big.spent {
+  color: #ff9d8f;
+}
+
+.stat-big.received {
+  color: var(--green);
+}
+
+/* ---------- Répartition par catégorie ---------- */
+
+.category-breakdown {
+  margin-bottom: 1.5rem;
+}
+
+.cat-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.25rem;
+}
+
+.cat-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cat-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.35rem;
+}
+
+.cat-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.cat-amount {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffb3a7;
+}
+
+.cat-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--card-soft);
+  overflow: hidden;
+}
+
+.cat-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--green);
+}
