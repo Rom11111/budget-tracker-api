@@ -1,0 +1,204 @@
+<main class="page">
+  @switch (activeTab()) {
+    @case ('home') {
+      <header class="header">
+        <div class="avatar">{{ greeting.charAt(0) }}</div>
+        <div class="header-text">
+          <h1>{{ greeting }}</h1>
+          <p>Bienvenue sur ton budget</p>
+        </div>
+        <button type="button" class="bell" aria-label="Notifications">🔔</button>
+      </header>
+
+      @if (error()) {
+        <p class="banner error">{{ error() }}</p>
+      }
+
+      <section class="hero card-glow">
+        <div class="hero-top">
+          <span class="pill">Mensuel</span>
+          <svg class="sparkline" viewBox="0 0 100 36" preserveAspectRatio="none" aria-hidden="true">
+            <polyline [attr.points]="sparklinePoints()" />
+          </svg>
+        </div>
+        <p class="hero-label">Solde</p>
+        <p class="hero-amount" [class.negative]="balance() < 0">
+          {{ balance() | currency:'EUR':'symbol':'1.2-2':'fr' }}
+        </p>
+        <div class="hero-stats">
+          <div>
+            <span class="stat-label">Dépensé</span>
+            <span class="stat-value spent">{{ spent() | currency:'EUR':'symbol':'1.2-2':'fr' }}</span>
+          </div>
+          <div class="stat-right">
+            <span class="stat-label">Reçu</span>
+            <span class="stat-value received">{{ income() | currency:'EUR':'symbol':'1.2-2':'fr' }}</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="quick-actions">
+        <h2>Actions rapides</h2>
+        <div class="actions-row">
+          <button type="button" class="action-card" (click)="openForm('expense')">
+            <span class="action-icon minus">−</span>
+            <span>Ajouter une dépense</span>
+          </button>
+          <button type="button" class="action-card" (click)="openForm('income')">
+            <span class="action-icon plus">+</span>
+            <span>Ajouter un revenu</span>
+          </button>
+        </div>
+      </section>
+
+      @if (formVisible()) {
+        <form class="card form" (ngSubmit)="submit()">
+          <p class="form-title">
+            {{ editingId() ? 'Modifier' : (formMode() === 'expense' ? 'Nouvelle dépense' : 'Nouveau revenu') }}
+          </p>
+          <div class="field">
+            <label for="label">Libellé</label>
+            <input id="label" name="label" type="text" [(ngModel)]="form.label" placeholder="Courses, Salaire..." required />
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="amount">Montant (€)</label>
+              <input id="amount" name="amount" type="number" step="0.01" min="0" [(ngModel)]="form.amount" required />
+            </div>
+            <div class="field">
+              <label for="date">Date</label>
+              <input id="date" name="date" type="date" [(ngModel)]="form.date" required />
+            </div>
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn primary">{{ editingId() ? 'Mettre à jour' : 'Ajouter' }}</button>
+            <button type="button" class="btn" (click)="cancelEdit()">Annuler</button>
+          </div>
+        </form>
+      }
+
+      <section class="activity">
+        <div class="activity-head">
+          <h2>Activité récente</h2>
+        </div>
+
+        @if (loading()) {
+          <p class="hint">Chargement...</p>
+        } @else if (transactions().length === 0) {
+          <p class="hint">Aucune transaction pour le moment.</p>
+        }
+
+        @for (transaction of transactions(); track transaction.id) {
+          <div class="tx">
+            <span class="tx-icon">{{ iconFor(transaction) }}</span>
+            <div class="tx-info">
+              <span class="tx-label">{{ transaction.label }}</span>
+              <span class="tx-date">{{ relativeDate(transaction.date) }}</span>
+            </div>
+            <div class="tx-actions">
+              <span class="tx-amount" [class.negative]="transaction.amount < 0">
+                {{ (transaction.amount > 0 ? '+' : '') + '' }}{{ transaction.amount | currency:'EUR':'symbol':'1.2-2':'fr' }}
+              </span>
+              <button type="button" class="icon-btn" aria-label="Modifier" (click)="edit(transaction)">✎</button>
+              <button type="button" class="icon-btn" aria-label="Supprimer" (click)="remove(transaction.id)">✕</button>
+            </div>
+          </div>
+        }
+      </section>
+    }
+
+    @case ('stats') {
+      <header class="header">
+        <div class="header-text">
+          <h1>Statistiques</h1>
+          <p>Vue d'ensemble de ton budget</p>
+        </div>
+      </header>
+
+      <section class="stats-grid">
+        <div class="card stat-card">
+          <span class="stat-label">Solde</span>
+          <span class="stat-big" [class.negative]="balance() < 0">
+            {{ balance() | currency:'EUR':'symbol':'1.0-0':'fr' }}
+          </span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-label">Transactions</span>
+          <span class="stat-big">{{ transactionCount() }}</span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-label">Dépensé</span>
+          <span class="stat-big spent">{{ spent() | currency:'EUR':'symbol':'1.0-0':'fr' }}</span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-label">Reçu</span>
+          <span class="stat-big received">{{ income() | currency:'EUR':'symbol':'1.0-0':'fr' }}</span>
+        </div>
+      </section>
+
+      <section class="activity">
+        <h2>Top dépenses</h2>
+        @if (topExpenses().length === 0) {
+          <p class="hint">Aucune dépense enregistrée.</p>
+        }
+        @for (transaction of topExpenses(); track transaction.id) {
+          <div class="tx">
+            <span class="tx-icon">{{ iconFor(transaction) }}</span>
+            <div class="tx-info">
+              <span class="tx-label">{{ transaction.label }}</span>
+              <span class="tx-date">{{ relativeDate(transaction.date) }}</span>
+            </div>
+            <span class="tx-amount negative">
+              {{ transaction.amount | currency:'EUR':'symbol':'1.2-2':'fr' }}
+            </span>
+          </div>
+        }
+      </section>
+    }
+
+    @case ('profile') {
+      <header class="header">
+        <div class="header-text">
+          <h1>Profil</h1>
+          <p>Ton compte et tes préférences</p>
+        </div>
+      </header>
+
+      <section class="profile-hero card-glow">
+        <div class="avatar big">R</div>
+        <p class="profile-name">Romain</p>
+        <p class="profile-sub">Budget Tracker v0.1</p>
+      </section>
+
+      <section class="card profile-menu">
+        <button type="button" class="menu-item" disabled>
+          <span>🎯 Objectif mensuel</span>
+          <span class="soon">Bientôt</span>
+        </button>
+        <button type="button" class="menu-item" disabled>
+          <span>🏷️ Catégories</span>
+          <span class="soon">Bientôt</span>
+        </button>
+        <button type="button" class="menu-item" disabled>
+          <span>🌙 Thème sombre</span>
+          <span class="soon">Activé</span>
+        </button>
+      </section>
+    }
+  }
+</main>
+
+<nav class="bottom-nav">
+  <button type="button" [class.active]="activeTab() === 'home'" (click)="selectTab('home')">
+    <span class="nav-icon">🏠</span>
+    <span>Accueil</span>
+  </button>
+  <button type="button" [class.active]="activeTab() === 'stats'" (click)="selectTab('stats')">
+    <span class="nav-icon">📊</span>
+    <span>Stats</span>
+  </button>
+  <button type="button" [class.active]="activeTab() === 'profile'" (click)="selectTab('profile')">
+    <span class="nav-icon">👤</span>
+    <span>Profil</span>
+  </button>
+</nav>
