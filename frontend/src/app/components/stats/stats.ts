@@ -53,12 +53,6 @@ export class Stats {
     aggregateSpendingByCategory(this.monthTransactions())
   );
 
-  // Largeur de la pilule d'une catégorie, proportionnelle à la plus grosse
-  protected pillWidth(total: number): number {
-    const max = this.spentByCategory()[0]?.total ?? 1;
-    return 30 + (total / max) * 70;
-  }
-
   changeMonth(offset: number): void {
     const [year, month] = this.selectedMonth().split('-').map(Number);
     const d = new Date(year, month - 1 + offset, 1);

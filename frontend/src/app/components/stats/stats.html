@@ -72,9 +72,12 @@
 
   @for (row of spentByCategory(); track row.category.id) {
     <div class="pill-row">
-      <div class="cat-pill" [style.width.%]="pillWidth(row.total)">
-        <span class="pill-icon"><i class="icon-{{ row.category.icon }}"></i></span>
-        <span class="pill-label">{{ row.category.label }}</span>
+      <div class="pill-track">
+        <div class="pill-fill" [style.width.%]="row.percent"></div>
+        <div class="pill-content">
+          <span class="pill-icon"><i class="icon-{{ row.category.icon }}"></i></span>
+          <span class="pill-label">{{ row.category.label }}</span>
+        </div>
       </div>
       <span class="pill-amount">
         {{ row.total | currency:'EUR':'symbol':'1.0-0':'fr' }}
