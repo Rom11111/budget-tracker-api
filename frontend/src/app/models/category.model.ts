@@ -4,15 +4,16 @@ export interface Category {
   icon: string;
 }
 
+// Le champ icon est un nom d'icône Lucide (classe CSS icon-<nom>, voir lucide.dev/icons)
 export const CATEGORIES: Category[] = [
-  { id: 'alimentation', label: 'Alimentation', icon: '🛒' },
-  { id: 'transport', label: 'Transport', icon: '🚗' },
-  { id: 'logement', label: 'Logement', icon: '🏠' },
-  { id: 'loisirs', label: 'Loisirs', icon: '🎮' },
-  { id: 'sante', label: 'Santé', icon: '🩺' },
-  { id: 'abonnements', label: 'Abonnements', icon: '📺' },
-  { id: 'salaire', label: 'Salaire', icon: '💰' },
-  { id: 'autre', label: 'Autre', icon: '🏷️' },
+  { id: 'alimentation', label: 'Alimentation', icon: 'shopping-cart' },
+  { id: 'transport', label: 'Transport', icon: 'car' },
+  { id: 'logement', label: 'Logement', icon: 'house' },
+  { id: 'loisirs', label: 'Loisirs', icon: 'gamepad-2' },
+  { id: 'sante', label: 'Santé', icon: 'stethoscope' },
+  { id: 'abonnements', label: 'Abonnements', icon: 'tv' },
+  { id: 'salaire', label: 'Salaire', icon: 'wallet' },
+  { id: 'autre', label: 'Autre', icon: 'tag' },
 ];
 
 export function categoryById(id: string | undefined): Category | undefined {

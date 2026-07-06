@@ -197,6 +197,6 @@ export class App implements OnInit {
   iconFor(transaction: Transaction): string {
     const fromCategory = categoryById(transaction.category);
     if (fromCategory) return fromCategory.icon;
-    return Number(transaction.amount) < 0 ? '💸' : '💵';
+    return Number(transaction.amount) < 0 ? 'credit-card' : 'banknote';
   }
 }

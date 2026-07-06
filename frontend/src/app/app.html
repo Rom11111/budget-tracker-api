@@ -7,7 +7,7 @@
           <h1>{{ greeting }}</h1>
           <p>Bienvenue sur ton budget</p>
         </div>
-        <button type="button" class="bell" aria-label="Notifications">🔔</button>
+        <button type="button" class="bell" aria-label="Notifications"><i class="icon-bell"></i></button>
       </header>
 
       @if (error()) {
@@ -41,11 +41,11 @@
         <h2>Actions rapides</h2>
         <div class="actions-row">
           <button type="button" class="action-card" (click)="openForm('expense')">
-            <span class="action-icon minus">−</span>
+            <span class="action-icon minus"><i class="icon-minus"></i></span>
             <span>Ajouter une dépense</span>
           </button>
           <button type="button" class="action-card" (click)="openForm('income')">
-            <span class="action-icon plus">+</span>
+            <span class="action-icon plus"><i class="icon-plus"></i></span>
             <span>Ajouter un revenu</span>
           </button>
         </div>
@@ -69,7 +69,7 @@
                   class="chip"
                   [class.selected]="form.category === cat.id"
                   (click)="selectCategory(cat.id)">
-                  {{ cat.icon }} {{ cat.label }}
+                  <i class="icon-{{ cat.icon }}"></i> {{ cat.label }}
                 </button>
               }
             </div>
@@ -104,7 +104,7 @@
 
         @for (transaction of transactions(); track transaction.id) {
           <div class="tx">
-            <span class="tx-icon">{{ iconFor(transaction) }}</span>
+            <span class="tx-icon"><i class="icon-{{ iconFor(transaction) }}"></i></span>
             <div class="tx-info">
               <span class="tx-label">{{ transaction.label }}</span>
               <span class="tx-date">{{ relativeDate(transaction.date) }}</span>
@@ -113,8 +113,8 @@
               <span class="tx-amount" [class.negative]="transaction.amount < 0">
                 {{ (transaction.amount > 0 ? '+' : '') + '' }}{{ transaction.amount | currency:'EUR':'symbol':'1.2-2':'fr' }}
               </span>
-              <button type="button" class="icon-btn" aria-label="Modifier" (click)="edit(transaction)">✎</button>
-              <button type="button" class="icon-btn" aria-label="Supprimer" (click)="remove(transaction.id)">✕</button>
+              <button type="button" class="icon-btn" aria-label="Modifier" (click)="edit(transaction)"><i class="icon-pencil"></i></button>
+              <button type="button" class="icon-btn" aria-label="Supprimer" (click)="remove(transaction.id)"><i class="icon-x"></i></button>
             </div>
           </div>
         }
@@ -157,7 +157,7 @@
         }
         @for (row of spentByCategory(); track row.category.id) {
           <div class="cat-row">
-            <span class="tx-icon">{{ row.category.icon }}</span>
+            <span class="tx-icon"><i class="icon-{{ row.category.icon }}"></i></span>
             <div class="cat-info">
               <div class="cat-line">
                 <span class="cat-label">{{ row.category.label }}</span>
@@ -178,7 +178,7 @@
         }
         @for (transaction of topExpenses(); track transaction.id) {
           <div class="tx">
-            <span class="tx-icon">{{ iconFor(transaction) }}</span>
+            <span class="tx-icon"><i class="icon-{{ iconFor(transaction) }}"></i></span>
             <div class="tx-info">
               <span class="tx-label">{{ transaction.label }}</span>
               <span class="tx-date">{{ relativeDate(transaction.date) }}</span>
@@ -207,15 +207,15 @@
 
       <section class="card profile-menu">
         <button type="button" class="menu-item" disabled>
-          <span>🎯 Objectif mensuel</span>
+          <span><i class="icon-target"></i> Objectif mensuel</span>
           <span class="soon">Bientôt</span>
         </button>
         <button type="button" class="menu-item" disabled>
-          <span>🏷️ Catégories</span>
+          <span><i class="icon-tag"></i> Catégories</span>
           <span class="soon">Bientôt</span>
         </button>
         <button type="button" class="menu-item" disabled>
-          <span>🌙 Thème sombre</span>
+          <span><i class="icon-moon"></i> Thème sombre</span>
           <span class="soon">Activé</span>
         </button>
       </section>
@@ -225,15 +225,15 @@
 
 <nav class="bottom-nav">
   <button type="button" [class.active]="activeTab() === 'home'" (click)="selectTab('home')">
-    <span class="nav-icon">🏠</span>
+    <span class="nav-icon"><i class="icon-house"></i></span>
     <span>Accueil</span>
   </button>
   <button type="button" [class.active]="activeTab() === 'stats'" (click)="selectTab('stats')">
-    <span class="nav-icon">📊</span>
+    <span class="nav-icon"><i class="icon-chart-column"></i></span>
     <span>Stats</span>
   </button>
   <button type="button" [class.active]="activeTab() === 'profile'" (click)="selectTab('profile')">
-    <span class="nav-icon">👤</span>
+    <span class="nav-icon"><i class="icon-user"></i></span>
     <span>Profil</span>
   </button>
 </nav>

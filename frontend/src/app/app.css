@@ -60,7 +60,8 @@
   border-radius: 50%;
   border: 1px solid #262c28;
   background: var(--card);
-  font-size: 1rem;
+  color: var(--text);
+  font-size: 1.05rem;
   cursor: pointer;
 }
 
@@ -404,7 +405,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
+  color: var(--green);
   flex-shrink: 0;
 }
 
@@ -499,11 +501,6 @@
 
 .bottom-nav .nav-icon {
   font-size: 1.25rem;
-  filter: grayscale(1) brightness(1.4);
-}
-
-.bottom-nav button.active .nav-icon {
-  filter: none;
 }
 
 /* ---------- Stats ---------- */
