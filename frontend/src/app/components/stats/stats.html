@@ -5,62 +5,80 @@
   </div>
 </header>
 
-<section class="stats-grid">
-  <div class="card stat-card">
-    <span class="stat-label">Solde</span>
-    <span class="stat-big" [class.negative]="store.balance() < 0">
-      {{ store.balance() | currency:'EUR':'symbol':'1.0-0':'fr' }}
-    </span>
+<div class="month-nav">
+  <button type="button" aria-label="Mois précédent" (click)="changeMonth(-1)">
+    <i class="icon-chevron-left"></i>
+  </button>
+  <span class="month-label">{{ monthLabel() }}</span>
+  <button type="button" aria-label="Mois suivant" (click)="changeMonth(1)">
+    <i class="icon-chevron-right"></i>
+  </button>
+</div>
+
+<section class="gauge-card card-glow">
+  <div class="gauge-wrap">
+    <svg viewBox="0 0 200 112" aria-hidden="true">
+      <path class="gauge-track" d="M 20 100 A 80 80 0 0 1 180 100" />
+      <path
+        class="gauge-fill"
+        [class.over]="overBudget()"
+        d="M 20 100 A 80 80 0 0 1 180 100"
+        [attr.stroke-dasharray]="gaugeDash()" />
+    </svg>
+    <div class="gauge-center">
+      <span class="gauge-label">{{ overBudget() ? 'Dépassement' : 'Restant' }}</span>
+      <span class="gauge-amount" [class.over]="overBudget()">
+        {{ remaining() | currency:'EUR':'symbol':'1.0-0':'fr' }}
+      </span>
+    </div>
   </div>
-  <div class="card stat-card">
-    <span class="stat-label">Transactions</span>
-    <span class="stat-big">{{ store.count() }}</span>
-  </div>
-  <div class="card stat-card">
-    <span class="stat-label">Dépensé</span>
-    <span class="stat-big spent">{{ store.spent() | currency:'EUR':'symbol':'1.0-0':'fr' }}</span>
-  </div>
-  <div class="card stat-card">
-    <span class="stat-label">Reçu</span>
-    <span class="stat-big received">{{ store.income() | currency:'EUR':'symbol':'1.0-0':'fr' }}</span>
+  <div class="gauge-foot">
+    <div>
+      <span class="stat-label">Dépensé</span>
+      <span class="foot-value">{{ monthSpent() | currency:'EUR':'symbol':'1.0-0':'fr' }}</span>
+    </div>
+    <div class="foot-right">
+      <span class="stat-label">Budget mensuel</span>
+      @if (editingLimit()) {
+        <input
+          class="limit-input"
+          type="number"
+          min="1"
+          [value]="budget.limit()"
+          (keydown.enter)="saveLimit($any($event.target).value)"
+          (blur)="saveLimit($any($event.target).value)"
+          autofocus />
+      } @else {
+        <span class="foot-value">
+          {{ budget.limit() | currency:'EUR':'symbol':'1.0-0':'fr' }}
+          <button type="button" class="edit-limit" aria-label="Modifier le budget" (click)="editingLimit.set(true)">
+            <i class="icon-pencil"></i>
+          </button>
+        </span>
+      }
+    </div>
   </div>
 </section>
 
 <section class="category-breakdown">
-  <h2>Dépenses par catégorie</h2>
-  @if (store.spentByCategory().length === 0) {
-    <p class="hint">Aucune dépense enregistrée.</p>
-  }
-  @for (row of store.spentByCategory(); track row.category.id) {
-    <div class="cat-row">
-      <span class="tx-icon"><i class="icon-{{ row.category.icon }}"></i></span>
-      <div class="cat-info">
-        <div class="cat-line">
-          <span class="cat-label">{{ row.category.label }}</span>
-          <span class="cat-amount">{{ row.total | currency:'EUR':'symbol':'1.2-2':'fr' }}</span>
-        </div>
-        <div class="cat-bar">
-          <div class="cat-bar-fill" [style.width.%]="row.percent"></div>
-        </div>
-      </div>
-    </div>
-  }
-</section>
+  <div class="breakdown-head">
+    <h2>Catégories</h2>
+    <span class="stat-label">Dépensé</span>
+  </div>
 
-<section class="activity">
-  <h2>Top dépenses</h2>
-  @if (store.topExpenses().length === 0) {
-    <p class="hint">Aucune dépense enregistrée.</p>
+  @if (spentByCategory().length === 0) {
+    <p class="hint">Aucune dépense sur ce mois.</p>
   }
-  @for (transaction of store.topExpenses(); track transaction.id) {
-    <div class="tx">
-      <span class="tx-icon"><i class="icon-{{ iconFor(transaction) }}"></i></span>
-      <div class="tx-info">
-        <span class="tx-label">{{ transaction.label }}</span>
-        <span class="tx-date">{{ relativeDate(transaction.date) }}</span>
+
+  @for (row of spentByCategory(); track row.category.id) {
+    <div class="pill-row">
+      <div class="cat-pill" [style.width.%]="pillWidth(row.total)">
+        <span class="pill-icon"><i class="icon-{{ row.category.icon }}"></i></span>
+        <span class="pill-label">{{ row.category.label }}</span>
       </div>
-      <span class="tx-amount negative">
-        {{ transaction.amount | currency:'EUR':'symbol':'1.2-2':'fr' }}
+      <span class="pill-amount">
+        {{ row.total | currency:'EUR':'symbol':'1.0-0':'fr' }}
+        <span class="pill-percent">({{ row.percent }} %)</span>
       </span>
     </div>
   }

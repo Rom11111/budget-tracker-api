@@ -1,5 +1,5 @@
 .header {
-  padding: 0.75rem 0 1.25rem;
+  padding: 0.75rem 0 1rem;
 }
 
 .header-text h1 {
@@ -14,79 +14,221 @@
   color: var(--muted);
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
+/* ---------- Navigation par mois ---------- */
+
+.month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.month-nav button {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  border: 1px solid #262c28;
+  background: var(--card);
+  color: var(--muted);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.month-nav button:active {
+  color: var(--text);
+}
+
+.month-label {
+  min-width: 10rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* ---------- Jauge ---------- */
+
+.gauge-card {
+  background: linear-gradient(160deg, #1d3b26 0%, #12241a 55%, #0f1a13 100%);
+  border: 1px solid #234d32;
+  border-radius: var(--radius);
+  padding: 1.25rem 1.25rem 1rem;
   margin-bottom: 1.5rem;
 }
 
-.stat-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+.card-glow {
+  box-shadow: 0 0 40px rgba(52, 216, 103, 0.08);
 }
 
-.stat-big {
-  font-size: 1.5rem;
+.gauge-wrap {
+  position: relative;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.gauge-wrap svg {
+  width: 100%;
+  display: block;
+}
+
+.gauge-track,
+.gauge-fill {
+  fill: none;
+  stroke-width: 14;
+  stroke-linecap: round;
+}
+
+.gauge-track {
+  stroke: rgba(255, 255, 255, 0.08);
+}
+
+.gauge-fill {
+  stroke: var(--green);
+  transition: stroke-dasharray 0.4s ease;
+}
+
+.gauge-fill.over {
+  stroke: var(--red);
+}
+
+.gauge-center {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.gauge-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.gauge-amount {
+  font-size: 2rem;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
-.stat-big.negative,
-.stat-big.spent {
+.gauge-amount.over {
   color: #ff9d8f;
 }
 
-.stat-big.received {
+.gauge-foot {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gauge-foot > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.foot-right {
+  text-align: right;
+}
+
+.foot-value {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.edit-limit {
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0 0.1rem;
+}
+
+.edit-limit:active {
   color: var(--green);
 }
 
-/* ---------- Répartition par catégorie ---------- */
+.limit-input {
+  width: 7rem;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--green-dark);
+  border-radius: 8px;
+  background: #10140f;
+  color: var(--text);
+  text-align: right;
+}
+
+.limit-input:focus {
+  outline: none;
+}
+
+/* ---------- Catégories en pilules ---------- */
 
 .category-breakdown {
   margin-bottom: 1.5rem;
 }
 
-.cat-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.55rem 0.25rem;
-}
-
-.cat-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.cat-line {
+.breakdown-head {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 0.35rem;
 }
 
-.cat-label {
+.pill-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.cat-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: rgba(52, 216, 103, 0.12);
+  border: 1px solid rgba(52, 216, 103, 0.18);
+  border-radius: 2rem;
+  padding: 0.45rem 0.9rem 0.45rem 0.5rem;
+  min-width: 0;
+}
+
+.pill-icon {
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  background: var(--card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  color: var(--green);
+  flex-shrink: 0;
+}
+
+.pill-label {
   font-weight: 600;
   font-size: 0.9rem;
-}
-
-.cat-amount {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #ffb3a7;
-}
-
-.cat-bar {
-  height: 6px;
-  border-radius: 3px;
-  background: var(--card-soft);
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.cat-bar-fill {
-  height: 100%;
-  border-radius: 3px;
-  background: var(--green);
+.pill-amount {
+  margin-left: auto;
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.pill-percent {
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 0.8rem;
 }

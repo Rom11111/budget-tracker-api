@@ -1,6 +1,5 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Transaction } from '../models/transaction.model';
-import { categoryById } from '../models/category.model';
 import { TransactionService } from './transaction.service';
 
 /**
@@ -57,33 +56,6 @@ export class TransactionStore {
       })
       .join(' ');
   });
-
-  // Dépenses agrégées par catégorie, triées de la plus grosse à la plus petite
-  readonly spentByCategory = computed(() => {
-    const totals = new Map<string, number>();
-    for (const t of this.transactions()) {
-      const amount = Number(t.amount);
-      if (amount < 0) {
-        const key = t.category ?? 'autre';
-        totals.set(key, (totals.get(key) ?? 0) + Math.abs(amount));
-      }
-    }
-    const totalSpent = this.spent() || 1;
-    return [...totals.entries()]
-      .map(([id, total]) => ({
-        category: categoryById(id) ?? { id, label: id, icon: 'tag' },
-        total,
-        percent: Math.round((total / totalSpent) * 100)
-      }))
-      .sort((a, b) => b.total - a.total);
-  });
-
-  readonly topExpenses = computed(() =>
-    [...this.transactions()]
-      .filter(t => Number(t.amount) < 0)
-      .sort((a, b) => Number(a.amount) - Number(b.amount))
-      .slice(0, 3)
-  );
 
   refresh(): void {
     this.loading.set(true);
