@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { TransactionStore } from './services/transaction-store';
 import { AuthStore } from './services/auth-store';
 import { Login } from './components/login/login';
@@ -13,13 +13,21 @@ import { BottomNav, Tab } from './components/bottom-nav/bottom-nav';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements OnInit {
+export class App {
   private readonly store = inject(TransactionStore);
   protected readonly auth = inject(AuthStore);
 
   protected readonly activeTab = signal<Tab>('home');
 
-  ngOnInit(): void {
-    this.store.refresh();
+  constructor() {
+    // Charge les transactions à la connexion, vide tout à la déconnexion
+    effect(() => {
+      if (this.auth.userEmail() !== null) {
+        this.store.refresh();
+      } else {
+        this.store.transactions.set([]);
+        this.activeTab.set('home');
+      }
+    });
   }
 }
