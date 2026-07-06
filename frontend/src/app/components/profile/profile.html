@@ -6,8 +6,8 @@
 </header>
 
 <section class="profile-hero card-glow">
-  <div class="avatar big">R</div>
-  <p class="profile-name">Romain</p>
+  <div class="avatar big">{{ initial }}</div>
+  <p class="profile-name">{{ auth.userEmail() }}</p>
   <p class="profile-sub">Budget Tracker v0.1</p>
 </section>
 
@@ -23,5 +23,8 @@
   <button type="button" class="menu-item" disabled>
     <span><i class="icon-moon"></i> Thème sombre</span>
     <span class="soon">Activé</span>
+  </button>
+  <button type="button" class="menu-item logout" (click)="auth.logout()">
+    <span><i class="icon-log-out"></i> Se déconnecter</span>
   </button>
 </section>

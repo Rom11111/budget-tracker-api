@@ -1,0 +1,162 @@
+.login-page {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.75rem;
+}
+
+/* ---------- Marque ---------- */
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  text-align: center;
+}
+
+.brand-icon {
+  width: 4.2rem;
+  height: 4.2rem;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #234d32, #12281a);
+  border: 1px solid #234d32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.9rem;
+  color: var(--green);
+  margin-bottom: 0.5rem;
+  box-shadow: 0 0 40px rgba(52, 216, 103, 0.15);
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.brand p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ---------- Carte de connexion ---------- */
+
+.login-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.4rem 1.25rem;
+}
+
+.form-title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.field label {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrap > i {
+  position: absolute;
+  left: 0.85rem;
+  color: var(--muted);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.input-wrap input {
+  font-size: 1rem;
+  padding: 0.7rem 2.6rem 0.7rem 2.5rem;
+  border: 1px solid #2b322d;
+  border-radius: 12px;
+  width: 100%;
+  background: #10140f;
+  color: var(--text);
+  color-scheme: dark;
+}
+
+.input-wrap input:focus {
+  outline: none;
+  border-color: var(--green-dark);
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 0.5rem;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 1rem;
+  padding: 0.4rem;
+  cursor: pointer;
+}
+
+.toggle-eye:active {
+  color: var(--text);
+}
+
+/* ---------- Actions ---------- */
+
+.btn {
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #2b322d;
+  background: transparent;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+  color: #eafff2;
+}
+
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.switch-mode {
+  margin: 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.switch-mode button {
+  border: none;
+  background: none;
+  color: var(--green);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
