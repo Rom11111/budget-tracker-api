@@ -177,7 +177,8 @@
 /* ---------- Quick actions ---------- */
 
 .quick-actions h2,
-.activity h2 {
+.activity h2,
+.category-breakdown h2 {
   font-size: 1rem;
   font-weight: 600;
   margin: 0 0 0.75rem;
@@ -298,6 +299,80 @@
   background: var(--green-dark);
   border-color: var(--green-dark);
   color: #eafff2;
+}
+
+/* ---------- Category chips ---------- */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  border: 1px solid #2b322d;
+  background: #10140f;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.45rem 0.75rem;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.chip.selected {
+  border-color: var(--green);
+  background: rgba(52, 216, 103, 0.12);
+  color: var(--green);
+}
+
+/* ---------- Category breakdown ---------- */
+
+.category-breakdown {
+  margin-bottom: 1.5rem;
+}
+
+.cat-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.25rem;
+}
+
+.cat-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cat-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.35rem;
+}
+
+.cat-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.cat-amount {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffb3a7;
+}
+
+.cat-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--card-soft);
+  overflow: hidden;
+}
+
+.cat-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--green);
 }
 
 /* ---------- Activity ---------- */

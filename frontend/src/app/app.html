@@ -60,6 +60,20 @@
             <label for="label">Libellé</label>
             <input id="label" name="label" type="text" [(ngModel)]="form.label" placeholder="Courses, Salaire..." required />
           </div>
+          <div class="field">
+            <label>Catégorie</label>
+            <div class="chips">
+              @for (cat of categories; track cat.id) {
+                <button
+                  type="button"
+                  class="chip"
+                  [class.selected]="form.category === cat.id"
+                  (click)="selectCategory(cat.id)">
+                  {{ cat.icon }} {{ cat.label }}
+                </button>
+              }
+            </div>
+          </div>
           <div class="field-row">
             <div class="field">
               <label for="amount">Montant (€)</label>
@@ -134,6 +148,27 @@
           <span class="stat-label">Reçu</span>
           <span class="stat-big received">{{ income() | currency:'EUR':'symbol':'1.0-0':'fr' }}</span>
         </div>
+      </section>
+
+      <section class="category-breakdown">
+        <h2>Dépenses par catégorie</h2>
+        @if (spentByCategory().length === 0) {
+          <p class="hint">Aucune dépense enregistrée.</p>
+        }
+        @for (row of spentByCategory(); track row.category.id) {
+          <div class="cat-row">
+            <span class="tx-icon">{{ row.category.icon }}</span>
+            <div class="cat-info">
+              <div class="cat-line">
+                <span class="cat-label">{{ row.category.label }}</span>
+                <span class="cat-amount">{{ row.total | currency:'EUR':'symbol':'1.2-2':'fr' }}</span>
+              </div>
+              <div class="cat-bar">
+                <div class="cat-bar-fill" [style.width.%]="row.percent"></div>
+              </div>
+            </div>
+          </div>
+        }
       </section>
 
       <section class="activity">

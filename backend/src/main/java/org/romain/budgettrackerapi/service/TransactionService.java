@@ -34,6 +34,7 @@ public class TransactionService {
         existingTransaction.setLabel(updatedTransaction.getLabel());
         existingTransaction.setAmount(updatedTransaction.getAmount());
         existingTransaction.setDate(updatedTransaction.getDate());
+        existingTransaction.setCategory(updatedTransaction.getCategory());
 
         return transactionRepository.save(existingTransaction);
     }

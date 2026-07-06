@@ -32,4 +32,7 @@ public class Transaction {
 
     // Date de la transaction
     private LocalDate date;
+
+    // Catégorie : exemple "alimentation", "transport", "salaire"
+    private String category;
 }

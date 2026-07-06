@@ -3,4 +3,5 @@ export interface Transaction {
   label: string;
   amount: number;
   date: string;
+  category?: string;
 }

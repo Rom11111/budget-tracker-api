@@ -2,6 +2,7 @@ import { Component, OnInit, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
 import { Transaction } from './models/transaction.model';
+import { CATEGORIES, categoryById } from './models/category.model';
 import { TransactionService } from './services/transaction.service';
 
 type FormMode = 'expense' | 'income';
@@ -62,6 +63,27 @@ export class App implements OnInit {
   });
 
   protected readonly greeting = new Date().getHours() < 18 ? 'Bonjour' : 'Bonsoir';
+  protected readonly categories = CATEGORIES;
+
+  // Dépenses agrégées par catégorie, triées de la plus grosse à la plus petite
+  protected readonly spentByCategory = computed(() => {
+    const totals = new Map<string, number>();
+    for (const t of this.transactions()) {
+      const amount = Number(t.amount);
+      if (amount < 0) {
+        const key = t.category ?? 'autre';
+        totals.set(key, (totals.get(key) ?? 0) + Math.abs(amount));
+      }
+    }
+    const totalSpent = this.spent() || 1;
+    return [...totals.entries()]
+      .map(([id, total]) => ({
+        category: categoryById(id) ?? { id, label: id, icon: '🏷️' },
+        total,
+        percent: Math.round((total / totalSpent) * 100)
+      }))
+      .sort((a, b) => b.total - a.total);
+  });
 
   protected readonly topExpenses = computed(() =>
     [...this.transactions()]
@@ -81,7 +103,11 @@ export class App implements OnInit {
   }
 
   private emptyForm(): Transaction {
-    return { label: '', amount: 0, date: new Date().toISOString().slice(0, 10) };
+    return { label: '', amount: 0, date: new Date().toISOString().slice(0, 10), category: 'autre' };
+  }
+
+  selectCategory(id: string): void {
+    this.form.category = id;
   }
 
   refresh(): void {
@@ -169,13 +195,8 @@ export class App implements OnInit {
   }
 
   iconFor(transaction: Transaction): string {
-    const label = transaction.label.toLowerCase();
-    if (label.includes('course') || label.includes('super')) return '🛒';
-    if (label.includes('salaire') || label.includes('paie')) return '💰';
-    if (label.includes('netflix') || label.includes('abonnement') || label.includes('spotify')) return '📺';
-    if (label.includes('resto') || label.includes('restaurant') || label.includes('repas')) return '🍔';
-    if (label.includes('transport') || label.includes('essence') || label.includes('train')) return '🚗';
-    if (label.includes('loyer') || label.includes('maison')) return '🏠';
+    const fromCategory = categoryById(transaction.category);
+    if (fromCategory) return fromCategory.icon;
     return Number(transaction.amount) < 0 ? '💸' : '💵';
   }
 }
