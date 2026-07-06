@@ -48,6 +48,18 @@
             <artifactId>spring-boot-starter-webmvc</artifactId>
         </dependency>
 
+        <!-- Sécurise l'API : hash des mots de passe, protection des routes -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- Vérifie le token JWT envoyé par le frontend sur chaque requête -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+        </dependency>
+
         <!-- Redémarre automatiquement l'application quand tu modifies le code -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
