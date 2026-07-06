@@ -160,3 +160,43 @@
   cursor: pointer;
   padding: 0;
 }
+
+.background {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 0;
+
+  width: 100vw;
+
+  height: 100vh;
+
+  background: #050805;
+
+}
+
+.login-page {
+
+  position: relative;
+
+  z-index: 1;
+
+}
+
+.login-page::before {
+
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 0;
+
+  pointer-events: none;
+
+  background: rgba(0, 0, 0, 0.15);
+
+}
