@@ -53,6 +53,33 @@ export class Login implements AfterViewInit, OnDestroy {
       color: 0x34d867,
       backgroundColor: 0x050805,
     });
+
+    this.keepAnimationAlive();
+  }
+
+  // Par défaut, TOPOLOGY ne s'efface jamais : les particules finissent par
+  // repasser sur leurs propres traits et l'image semble figée. On enveloppe
+  // le draw() de p5 pour poser à chaque image un voile semi-transparent
+  // couleur du fond : les anciens traits s'estompent, le mouvement reste visible.
+  // Attention : vantaEffect.p5 vaut `true` (drapeau interne) tant que p5 n'a
+  // pas fini son setup asynchrone — on attend la vraie instance avant d'agir.
+  private keepAnimationAlive(attempt = 0): void {
+    const p = this.vantaEffect?.p5;
+    if (typeof p !== 'object' || typeof p.draw !== 'function') {
+      if (attempt < 50) {
+        setTimeout(() => this.keepAnimationAlive(attempt + 1), 100);
+      }
+      return;
+    }
+    const originalDraw = p.draw;
+    p.draw = () => {
+      p.push();
+      p.noStroke();
+      p.fill(5, 8, 5, 10); // #050805 avec un alpha très léger (10/255)
+      p.rect(0, 0, p.width, p.height);
+      p.pop();
+      originalDraw();
+    };
   }
 
   ngOnDestroy(): void {
