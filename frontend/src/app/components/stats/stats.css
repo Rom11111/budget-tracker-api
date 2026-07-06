@@ -196,7 +196,7 @@
   border: 1px solid rgba(52, 216, 103, 0.18);
   border-radius: 2rem;
   padding: 0.45rem 0.9rem 0.45rem 0.5rem;
-  min-width: 0;
+  min-width: max-content;
 }
 
 .pill-icon {
@@ -216,8 +216,6 @@
   font-weight: 600;
   font-size: 0.9rem;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .pill-amount {
